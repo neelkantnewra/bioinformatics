@@ -1,6 +1,5 @@
 def NWSeqAlign(seq1,seq2,gap_score=-1,match_score=1,mismatch_score=0):
   seq1,seq2 = list(seq1),list(seq2)
-  
   #<======matrix formation=====>
   matrix = []
   
@@ -34,14 +33,14 @@ def NWSeqAlign(seq1,seq2,gap_score=-1,match_score=1,mismatch_score=0):
 
   #<=========Backtracing===========>
   
-  A,B = Backtracing(seq1,seq2, matrix, gap_score)
+  A,B = Backtracing(seq1,seq2, matrix, gap_score,match_score,mismatch_score)
 
-  return A,B  #final output 
+  return A,B  #final answer
       
 
 
 #<========Function for Backtracing=========>
-def Backtracing(seq_2,seq_1,matrix,gap):
+def Backtracing(seq_2,seq_1,matrix,gap,match_score,mismatch_score):
   AlignmentA = ""
   AlignmentB = ""
   d = gap
@@ -54,7 +53,7 @@ def Backtracing(seq_2,seq_1,matrix,gap):
     scoreUp = matrix[row][col-1]
     scoreLeft = matrix[row-1][col]
 
-    if score == scoreDiag + Similarity(seq_1[col-1],seq_2[row-1]):
+    if score == scoreDiag + Similarity(seq_1[col-1],seq_2[row-1],match_score,mismatch_score):
 
       AlignmentA = seq_2[row-1] + AlignmentA
       AlignmentB = seq_1[col-1] + AlignmentB
@@ -82,7 +81,7 @@ def Backtracing(seq_2,seq_1,matrix,gap):
     col-=1
   return AlignmentA,AlignmentB
 
-#<=========similarity Function==============>
+
 def Similarity(A,B,match_score=1,mismatch_score=0):
   if A == B :
     return match_score
@@ -100,4 +99,3 @@ def Similarity(A,B,match_score=1,mismatch_score=0):
 
 # AGGCCCTTTCT
 # AGG------CT
-
