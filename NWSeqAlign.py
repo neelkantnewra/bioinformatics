@@ -36,7 +36,7 @@ def NWSeqAlign(seq1,seq2,gap_score=-1,match_score=1,mismatch_score=0):
   
   A,B = Backtracing(seq1,seq2, matrix, gap_score)
 
-  return A,B
+  return A,B  #final output 
       
 
 
@@ -88,3 +88,16 @@ def Similarity(A,B,match_score=1,mismatch_score=0):
     return match_score
   else:
     return mismatch_score
+
+#<****************==========INPUT===========================**************>
+# seq1 = "AGGCCCTTTCT"
+# seq2 = "AGGCT"
+# a,b= NWSeqAlign(seq1,seq2,-2,1,-1)
+# print(a)
+# print(b)
+
+#<**************============OUTPUT========================*************>
+
+# AGGCCCTTTCT
+# AGG------CT
+
