@@ -1,4 +1,4 @@
-def SWSeqAlign(seq1,seq2,gap_score=-2,match_score=1,mismatch_score=-11):
+def SWSeqAlign(seq1,seq2,gap_score=-2,match_score=1,mismatch_score=-1):
   seq1,seq2 = list(seq1),list(seq2)
   #<======matrix formation=====>
   matrix = []
