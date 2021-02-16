@@ -45,54 +45,54 @@ def SWSeqAlign(seq1,seq2,gap_score=-2,match_score=1,mismatch_score=-1):
 
   #<=========Backtracing===========>
   
-  # A,B = Backtracing(seq1,seq2, matrix, gap_score,match_score,mismatch_score)
+  A,B = Backtracing(seq1,seq2, matrix, gap_score,match_score,mismatch_score)
 
-  return matrix
+  return matrix,A,B
       
 
-#<==================================================================CODE TO BE EDITED=========================================>
 
 #<========Function for Backtracing=========>
-# def Backtracing(seq_2,seq_1,matrix,gap,match_score,mismatch_score):
-#   AlignmentA = ""
-#   AlignmentB = ""
-#   d = gap
-#   row = len(seq_2)
-#   col = len(seq_1)
+def Backtracing(seq_2,seq_1,matrix,gap,match_score,mismatch_score):
+  p = 0
+  l=0
+  for i in range(len(matrix)):
+    k = max(matrix[i])
+    if k > p :
+      p = k 
+      l = i
+  j = 0
+  for s in range(len(matrix[p])):
+    if p == matrix[l][s]:
+      j = s 
+  AlignmentA = ""
+  AlignmentB = ""
+  d = gap
+  row = l
+  col = j
 
-#   while row>0 and col>0:
-#     score = matrix[row][col]
-#     scoreDiag = matrix[row-1][col-1]
-#     # scoreUp = matrix[row][col-1]
-#     # scoreLeft = matrix[row-1][col]
+  while row>0 and col>0:
+    score = matrix[row][col]
+    scoreDiag = matrix[row-1][col-1]
+    if score > scoreDiag:
+      AlignmentB = seq_1[col-1] + AlignmentB
+      row-=1
+      col-=1
+    else:
+      break
 
-#     if score == scoreDiag + Similarity(seq_1[col-1],seq_2[row-1],match_score,mismatch_score):
-
-#       AlignmentA = seq_2[row-1] + AlignmentA
-#       AlignmentB = seq_1[col-1] + AlignmentB
-#       row-=1
-#       col-=1
-
-#     # elif score ==scoreLeft + d:
-#     #   AlignmentA = seq_2[row-1] + AlignmentA
-#     #   AlignmentB = "-"+ AlignmentB
-#     #   row-=1
-#     # elif score == scoreUp + d:
-
-#     #   AlignmentA = "-" + AlignmentA
-#     #   AlignmentB = seq_1[col-1]+ AlignmentB
-#     #   col-=1 
-    
-#   while row>0:
-#     break
-
-#   while col>0:
-#     break
-#   return AlignmentA,AlignmentB
+  #Alignment
+  seq_2 = "".join(seq_2)
+  seq4 = seq_2.find(AlignmentB)
+  seqk = []
+  for i in range(0,len(seq_2)-len(AlignmentB)+1):
+    if i == seq4:
+      seqk.append(AlignmentB)
+    else:
+      seqk.append("-")
+    if len(seqk)+1 >=len(seq_2):
+      break
+  seqk = "".join(seqk)
 
 
-def Similarity(A,B,match_score=1,mismatch_score=0):
-  if A == B :
-    return match_score
-  else:
-    return mismatch_score
+
+  return seq_2,seqk
