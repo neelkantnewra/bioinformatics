@@ -79,7 +79,7 @@ def Backtracing(seq_2,seq_1,matrix,gap,match_score,mismatch_score):
     AlignmentA = "-" + AlignmentA
     AlignmentB = seq_1[col-1]+ AlignmentB
     col-=1
-  return AlignmentA,AlignmentB
+  return matrix, AlignmentA,AlignmentB
 
 
 def Similarity(A,B,match_score=1,mismatch_score=0):
