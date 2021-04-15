@@ -35,7 +35,7 @@ def NWSeqAlign(seq1,seq2,gap_score=-1,match_score=1,mismatch_score=0):
   
   A,B = Backtracing(seq1,seq2, matrix, gap_score,match_score,mismatch_score)
 
-  return A,B  #final answer
+  return matrix,A,B  #final answer
       
 
 
@@ -79,7 +79,7 @@ def Backtracing(seq_2,seq_1,matrix,gap,match_score,mismatch_score):
     AlignmentA = "-" + AlignmentA
     AlignmentB = seq_1[col-1]+ AlignmentB
     col-=1
-  return matrix, AlignmentA,AlignmentB
+  return AlignmentA,AlignmentB
 
 
 def Similarity(A,B,match_score=1,mismatch_score=0):
